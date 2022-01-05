@@ -1,23 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import Modal from "./components/Modal";
+import useModal from "./hooks/useModal";
+import GalleryModal from './components/GalleryModal';
 
 function App() {
+  const [isOpenLoginModal, openLoginModal, closeLoginModal] = useModal();
+  const [isOpenChatModal, openChatModal, closeChatModal] = useModal();
+  const [isOpenGalleryModal, openGalleryModal, closeGalleryModal] =
+    useModal(false);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <button onClick={openLoginModal}>Open Login Modal</button>
+      <button onClick={openChatModal}>Open Chat Modal</button>
+      <button onClick={openGalleryModal}>Open Gallery Modal</button>
+      <Modal
+        isOpen={isOpenLoginModal}
+        closeModal={closeLoginModal}
+        title="Login"
+      >
+        <h1>Login</h1>
+        <form>
+          <input type="email" placeholder="Correo " />
+          <input type="password" placeholder="Contraseña " />
+        </form>
+      </Modal>
+      <Modal
+        isOpen={isOpenChatModal}
+        closeModal={closeChatModal}
+        title="Chat Modal"
+      >
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Hola esto en un chat <b>Angelica</b>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <p>
+          ¿Que hace? <b>Sergio</b>
+        </p>
+      </Modal>
+      <GalleryModal
+        isOpen={isOpenGalleryModal}
+        closeModal={closeGalleryModal}
+      />
     </div>
   );
 }
